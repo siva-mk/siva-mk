@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Iniya naal</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" href="custom.css"> -->
+        <link rel="stylesheet" href="whitey.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script type="text/javascript" src="index.js"></script>
+        <script type="text/javascript" src="showdown.js"></script>
+        <script>
+            // Initialize Showdown converter
+            const converter = new showdown.Converter();
+    
+            // Function to fetch markdown file and display it
+            async function fetchMarkdown() {
+                try {                   
+                    const responseAbout = await fetch('/mds/about.md'); // Replace with your markdown file path
+                    const markdownTextAbt = await responseAbout.text();
+                    const htmlContentAbt = converter.makeHtml(markdownTextAbt);
+    
+                    // Display the converted HTML in the div
+                    document.getElementById('about').innerHTML = htmlContentAbt;
+
+                    // Fetch today post
+                    const responseTodayPost = await fetch('/posts/2025/today.md'); // Replace with your markdown file path                    
+                    const markdownTextToday = await responseTodayPost.text();
+                    const htmlContentToday = converter.makeHtml(markdownTextToday);
+    
+                    // Display the converted HTML in the div
+                    document.getElementById('today-post').innerHTML = htmlContentToday;
+                } catch (error) {
+                    console.error('Error fetching markdown file:', error);
+                }
+            }
+    
+            // Call the function to fetch and display markdown content
+            fetchMarkdown();
+        </script>
+    </head>
+    <body onload="fetchRecent()">
+        <div style="text-align: left; padding-top: 1%; padding-left: 1%;"  id='home-link'></div><a class="fa fa-home" href="index.html"> Home </a></div>
+        <h2>இனிய​ நாள்</h2>
+            <div  style="text-align: center;" id="about">
+            </div>
+            <div  style="text-align: center;" id="today-post">
+            </div>
+        <div style="text-align: center;" id="posts" ></div>
+       
+    </body>
+    <footer  style="text-align: center; padding: 2%;" >
+        <small>Copyright © 2025. Siva Kalidasan. All rights reserved.</small>
+    </footer>
+</html>
